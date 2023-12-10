@@ -3,6 +3,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -14,30 +15,45 @@ void print_vector(vector<int> vector) {
 }
 
 void play_game() {
-	
+
 	vector<int> guesses;
-	
+	int count = 0;
 
 	int rNum = rand() % 251;
 	cout << rNum << endl;
-	
+
 	while (true)
 	{
-	    int guess;
+		int guess;
 		cin >> guess;
-		
+		count++;
+
 		guesses.push_back(guess);
-		
+
 		if (guess == rNum) {
 			cout << "\nCorrect!" << endl;
 			break;
-		} 
+		}
 		else if (guess > rNum) {
 			cout << "Lower\n" << endl;
 		}
 		else {
 			cout << "Higher\n" << endl;
 		}
+	}
+
+	ifstream input("..\best_score.txt");
+
+	int best_score;
+	input >> best_score;
+
+	ofstream output("..\best_score.txt");
+	if (count < best_score){
+		output << count; 
+	}
+	else
+	{
+		output << best_score;
 	}
 	print_vector(guesses);
 }
