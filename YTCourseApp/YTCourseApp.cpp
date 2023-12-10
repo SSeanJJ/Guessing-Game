@@ -43,6 +43,10 @@ void play_game() {
 	}
 
 	ifstream input("..\best_score.txt");
+	if (!input.is_open()) {
+		cout << "Unable to Read File\n" << endl;
+		return;
+	}
 
 	int best_score;
 	input >> best_score;
